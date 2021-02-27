@@ -28,7 +28,7 @@ const validate = values => {
 	return errors;
 };
 
-export const RegisterForm = handleSubmit => {
+export const RegisterForm = ({ handleSubmit }) => {
 	const formik = useFormik({
 		initialValues: {
 			email: '',
