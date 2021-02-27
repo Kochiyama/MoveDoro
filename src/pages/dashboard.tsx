@@ -33,7 +33,6 @@ interface DashboardProps {
 }
 
 export default function Dashboard(props: DashboardProps) {
-	console.log(props.user);
 	return (
 		<ChallengesProvider user={props.user}>
 			<div className={styles.container}>
