@@ -1,63 +1,50 @@
-import React from 'react';
-import Head from 'next/head';
-import { GetServerSideProps } from 'next';
-
-import { ChallengesProvider } from '../contexts/ChallengesContext';
-import { CountdownProvider } from '../contexts/CountdownContext';
-
-import { ExperienceBar } from '../components/ExperienceBar';
-import Profile from '../components/Profile';
-import CompletedCheallenges from '../components/CompletedChallenges';
-import Countdown from '../components/Countdown';
-import { ChallengeBox } from '../components/ChallengeBox';
+import React, { useState } from 'react';
+import { LoginForm } from '../components/LoginForm';
+import { RegisterForm } from '../components/RegisterForm';
 
 import styles from '../styles/pages/home.module.css';
 
-interface HomeProps {
-	level: number;
-	currentExperience: number;
-	challengesCompleted: number;
-}
+export default function Home() {
+	const [isOnLoginPage, setIsOnLoginPage] = useState(true);
 
-export default function Home(props: HomeProps) {
+	function handleClick() {
+		setIsOnLoginPage(!isOnLoginPage);
+	}
+
 	return (
-		<ChallengesProvider
-			level={props.level}
-			currentExperience={props.currentExperience}
-			challengesCompleted={props.challengesCompleted}>
-			<div className={styles.container}>
-				<Head>
-					<title>Inicio | Move.it</title>
-				</Head>
+		<div className={styles.container}>
+			<div className={styles.leftSideContainer}>
+				<h1>POMODORO MOVING</h1>
+				<p>A maneira automática de ser mais produtivo e saudável!</p>
 
-				<ExperienceBar />
-
-				<CountdownProvider>
-					<section>
-						<div className={styles.profile}>
-							<Profile />
-							<CompletedCheallenges />
-							<Countdown />
-						</div>
-
-						<div>
-							<ChallengeBox />
-						</div>
-					</section>
-				</CountdownProvider>
+				<img src='time-management.svg' />
 			</div>
-		</ChallengesProvider>
+
+			<div className={styles.rightSideContainer}>
+				<h1>Bem-vindo</h1>
+
+				{isOnLoginPage ? (
+					<p>Faça login para começar</p>
+				) : (
+					<p>Crie sua conta gratuitamente.</p>
+				)}
+
+				{isOnLoginPage ? (
+					<>
+						<LoginForm />
+						<button className={styles.switchPageButton} onClick={handleClick}>
+							Não tem uma conta? Cadastre-se gratuitamente.
+						</button>
+					</>
+				) : (
+					<>
+						<RegisterForm />
+						<button className={styles.switchPageButton} onClick={handleClick}>
+							Já é cadastrado? Entre com suas cedenciais.
+						</button>
+					</>
+				)}
+			</div>
+		</div>
 	);
 }
-
-export const getServerSideProps: GetServerSideProps = async ctx => {
-	const { level, currentExperience, challengesCompleted } = ctx.req.cookies;
-
-	return {
-		props: {
-			level: Number(level),
-			currentExperience: Number(currentExperience),
-			challengesCompleted: Number(challengesCompleted),
-		},
-	};
-};
