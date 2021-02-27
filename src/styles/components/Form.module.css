@@ -1,0 +1,64 @@
+.form {
+	width: 24rem;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.submitButton {
+	width: 100%;
+	height: 3rem;
+
+	margin-top: 2rem;
+
+	font-size: 1.25rem;
+	font-weight: 600;
+
+	border: none;
+	border-radius: 5px;
+
+	background: var(--white);
+	color: var(--blue);
+
+	transition: filter 0.2s;
+}
+
+.submitButton:hover {
+	filter: brightness(0.9);
+}
+
+.label {
+	display: flex;
+	align-content: center;
+	justify-content: space-between;
+
+	margin-bottom: 0.5rem;
+	margin-top: 2rem;
+	font-size: 1rem;
+	color: var(--white);
+}
+
+.input {
+	width: 100%;
+	height: 3rem;
+	padding: 0.5rem;
+
+	border: none;
+	border-radius: 5px;
+
+	background-color: var(--blue-dark);
+	color: var(--white);
+	box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+
+	font-size: 1.1rem;
+}
+
+.error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 1rem;
+	margin-left: 1rem;
+	color: var(--red);
+}
