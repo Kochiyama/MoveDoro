@@ -1,0 +1,29 @@
+.container {
+	flex: 1;
+	height: 100vh;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	text-align: center;
+	background-color: var(--background);
+}
+
+.container h1 {
+	font-size: 4rem;
+	font-family: 'Rajdhani';
+	font-weight: 600;
+	color: var(--blue);
+}
+
+.container p {
+	font-size: 1.15rem;
+	color: var(--text);
+}
+
+.container img {
+	margin-top: 3rem;
+	width: 30rem;
+}
