@@ -2,7 +2,6 @@ import React from 'react';
 import { useFormik } from 'formik';
 
 import styles from '../styles/components/Form.module.css';
-
 interface ValidationProps {
 	name: string;
 	email: string;
@@ -29,17 +28,15 @@ const validate = values => {
 	return errors;
 };
 
-export const RegisterForm = () => {
-	// Pass the useFormik() hook initial form values and a submit function that will
-	// be called when the form is submitted
+export const RegisterForm = handleSubmit => {
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 			password: '',
 		},
 		validate,
-		onSubmit: values => {
-			alert(JSON.stringify(values, null, 2));
+		onSubmit: async values => {
+			handleSubmit(values);
 		},
 	});
 	return (
