@@ -3,13 +3,13 @@ import { ChallengesContext } from '../contexts/ChallengesContext';
 import styles from '../styles/components/Profile.module.css';
 
 export default function Profile() {
-	const { level } = useContext(ChallengesContext);
+	const { level, name, avatar_url } = useContext(ChallengesContext);
 
 	return (
 		<div className={styles.profileContainer}>
-			<img src='https://github.com/kochiyama.png' alt='Marcelo Kochiyama' />
+			<img src={avatar_url} alt={name} />
 			<div>
-				<strong>Marcelo Haruo Kochiyama</strong>
+				<strong>{name}</strong>
 				<p>
 					<img src='icons/level.svg' alt='level' />
 					Level {level}
