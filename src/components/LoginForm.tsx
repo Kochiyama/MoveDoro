@@ -28,17 +28,15 @@ const validate = values => {
 	return errors;
 };
 
-export const LoginForm = () => {
-	// Pass the useFormik() hook initial form values and a submit function that will
-	// be called when the form is submitted
+export const LoginForm = ({ handleSubmit }) => {
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 			password: '',
 		},
 		validate,
-		onSubmit: values => {
-			alert(JSON.stringify(values, null, 2));
+		onSubmit: async values => {
+			handleSubmit(values);
 		},
 	});
 	return (
