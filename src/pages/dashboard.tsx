@@ -12,19 +12,30 @@ import Countdown from '../components/Countdown';
 import { ChallengeBox } from '../components/ChallengeBox';
 
 import styles from '../styles/pages/dashboard.module.css';
+import axios from 'axios';
+import api from '../config/api';
 
-interface DashboardProps {
+interface Avatar {
+	url: string;
+	name: string;
+	path: string;
+}
+export interface User {
+	email: string;
+	name: string;
 	level: number;
-	currentExperience: number;
-	challengesCompleted: number;
+	current_experience: number;
+	challenges_completed: number;
+	avatar: Avatar;
+}
+interface DashboardProps {
+	user: User;
 }
 
 export default function Dashboard(props: DashboardProps) {
+	console.log(props.user);
 	return (
-		<ChallengesProvider
-			level={props.level}
-			currentExperience={props.currentExperience}
-			challengesCompleted={props.challengesCompleted}>
+		<ChallengesProvider user={props.user}>
 			<div className={styles.container}>
 				<Head>
 					<title>Inicio | Move.it</title>
@@ -51,13 +62,26 @@ export default function Dashboard(props: DashboardProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-	const { level, currentExperience, challengesCompleted } = ctx.req.cookies;
+	const { movedoro_auth_token } = ctx.req.cookies;
+
+	if (!movedoro_auth_token) {
+		return {
+			redirect: {
+				destination: '/login',
+				permanent: false,
+			},
+		};
+	}
+
+	const response = await axios({
+		method: 'GET',
+		url: `${api.url}/users`,
+		headers: { Authorization: `Bearer ${movedoro_auth_token}` },
+	});
 
 	return {
 		props: {
-			level: Number(level),
-			currentExperience: Number(currentExperience),
-			challengesCompleted: Number(challengesCompleted),
+			user: response.data,
 		},
 	};
 };
