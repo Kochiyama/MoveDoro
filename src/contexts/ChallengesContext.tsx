@@ -4,6 +4,7 @@ import Cookie from 'js-cookie';
 import challenges from '../../challenges.json';
 
 import { LevelUpModal } from '../components/LevelUpModal';
+import { User } from '../pages/dashboard';
 
 interface Challenge {
 	type: string;
@@ -12,6 +13,8 @@ interface Challenge {
 }
 
 interface ChallengesContextData {
+	name: string;
+	avatar_url: string;
 	level: number;
 	currentExperience: number;
 	challengesCompleted: number;
@@ -26,23 +29,21 @@ interface ChallengesContextData {
 
 interface ChallengesProviderProps {
 	children: ReactNode;
-	level: number;
-	currentExperience: number;
-	challengesCompleted: number;
+	user: User;
 }
 
 export const ChallengesContext = createContext({} as ChallengesContextData);
 
 export function ChallengesProvider({
 	children,
-	...user
+	user,
 }: ChallengesProviderProps) {
 	const [level, setLevel] = useState(user.level ?? 1);
 	const [currentExperience, setCurrentExperience] = useState(
-		user.currentExperience ?? 0
+		user.current_experience ?? 0
 	);
 	const [challengesCompleted, setChallengesCompleted] = useState(
-		user.challengesCompleted ?? 0
+		user.challenges_completed ?? 0
 	);
 	const [activeChallenge, setActiveChallenge] = useState(null);
 
@@ -112,6 +113,8 @@ export function ChallengesProvider({
 	return (
 		<ChallengesContext.Provider
 			value={{
+				name: user.name,
+				avatar_url: user.avatar.url,
 				level,
 				currentExperience,
 				challengesCompleted,
