@@ -27,7 +27,7 @@ export default function Home() {
 		}
 
 		alert('Registrado com sucesso!');
-		route.push('/');
+		route.push('/login');
 	}
 
 	return (
