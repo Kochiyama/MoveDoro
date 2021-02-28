@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { RegisterForm } from '../components/RegisterForm';
 import { SideBanner } from '../components/SideBanner';
+import { SessionModal } from '../components/SessionModal';
 
 import styles from '../styles/pages/login&register.module.css';
 
 export default function Home() {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isErrorModal, setIsErrorModal] = useState(false);
+	const [modalTitle, setModalTitle] = useState('');
+	const [modalMessage, setModalMessage] = useState('');
+	const [modalUserName, setModalUserName] = useState('');
+
 	const route = useRouter();
+
+	function closeModal() {
+		setIsModalOpen(false);
+	}
 
 	async function register(values) {
 		try {
@@ -17,17 +28,29 @@ export default function Home() {
 				method: 'POST',
 				url: 'http://localhost:4000/users',
 				data: {
-					name: values.email,
+					name: values.name,
 					email: values.email,
 					password: values.password,
 				},
 			});
-		} catch (error) {
-			console.log(error);
-		}
 
-		alert('Registrado com sucesso!');
-		route.push('/login');
+			const firstName = values.name.split(' ')[0];
+
+			setModalUserName(firstName);
+
+			setIsErrorModal(false);
+			setModalTitle('Registrado Com Sucesso!');
+			setModalMessage('Agora entre com suas credenciais e comece a utilizar');
+			setIsModalOpen(true);
+			setTimeout(() => {
+				route.push('/login');
+			}, 3000);
+		} catch (error) {
+			setIsErrorModal(true);
+			setModalTitle('Usuário já registrado!');
+			setModalMessage('Entre com suas credenciais ou recupere sua senha.');
+			setIsModalOpen(true);
+		}
 	}
 
 	return (
@@ -47,6 +70,16 @@ export default function Home() {
 					</a>
 				</Link>
 			</div>
+
+			{isModalOpen && (
+				<SessionModal
+					closeModalFunction={closeModal}
+					isErrorModal={isErrorModal}
+					title={modalTitle}
+					message={modalMessage}
+					modalUserName={modalUserName}
+				/>
+			)}
 		</div>
 	);
 }
