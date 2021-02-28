@@ -34,14 +34,13 @@ export default function Login() {
 			});
 
 			Cookie.set('movedoro_auth_token', String(response.data.token));
+			route.push('/');
 		} catch (error) {
 			setIsErrorModal(true);
 			setModalTitle(error.response.data.title);
 			setModalMessage(error.response.data.message);
 			setIsModalOpen(true);
 		}
-
-		route.push('/dashboard');
 	}
 
 	return (
