@@ -87,7 +87,7 @@ export const RegisterForm = ({ handleSubmit }) => {
 			/>
 
 			<button className={styles.submitButton} type='submit'>
-				Submit
+				Cadastrar
 			</button>
 		</form>
 	);

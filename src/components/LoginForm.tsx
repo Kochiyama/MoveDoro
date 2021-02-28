@@ -72,7 +72,7 @@ export const LoginForm = ({ handleSubmit }) => {
 			/>
 
 			<button className={styles.submitButton} type='submit'>
-				Submit
+				Entrar
 			</button>
 		</form>
 	);
