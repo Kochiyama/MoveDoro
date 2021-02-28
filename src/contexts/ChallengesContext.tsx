@@ -1,10 +1,13 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import Cookie from 'js-cookie';
+import axios from 'axios';
+import api from '../config/api';
 
 import challenges from '../../challenges.json';
 
 import { LevelUpModal } from '../components/LevelUpModal';
-import { User } from '../pages/dashboard';
+import { User } from '../pages/index';
+import { string } from 'yup';
+import Cookies from 'js-cookie';
 
 interface Challenge {
 	type: string;
@@ -46,19 +49,36 @@ export function ChallengesProvider({
 		user.challenges_completed ?? 0
 	);
 	const [activeChallenge, setActiveChallenge] = useState(null);
+	const [isLevelUpModalOpen, setisLevelUpModalOpen] = useState(false);
 
 	const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
-	const [isLevelUpModalOpen, setisLevelUpModalOpen] = useState(false);
+
+	function updateDatabaseUserData() {
+		axios({
+			method: 'PUT',
+			url: `${api.url}/users`,
+			data: {
+				level: level,
+				current_experience: currentExperience,
+				challenges_completed: challengesCompleted,
+			},
+			headers: {
+				Authorization: `Bearer ${Cookies.get('movedoro_auth_token')}`,
+			},
+		}).then(res => {
+			console.log(res);
+		});
+	}
 
 	useEffect(() => {
 		Notification.requestPermission();
 	}, []);
 
-	useEffect(() => {
-		Cookie.set('level', String(level));
-		Cookie.set('currentExperience', String(currentExperience));
-		Cookie.set('challengesCompleted', String(challengesCompleted));
-	}, [level, currentExperience, challengesCompleted]);
+	useEffect(updateDatabaseUserData, [
+		level,
+		currentExperience,
+		challengesCompleted,
+	]);
 
 	function openLevelUpModal() {
 		setisLevelUpModalOpen(true);
