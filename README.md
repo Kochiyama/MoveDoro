@@ -48,7 +48,21 @@ That's all for running this project on your machine
 
 If you have found a bug or have an idea to improve this project you can send an email for marcelokochiyamadev@gmail.com or create a new issue.
 
-# Roadmap - Aditional Features
+# Roadmap - Aditional Features - On development application
+
+- [x] Store data on database
+- [x] New UI style
+- [ ] Themes
+- [x] User login and Authentication
+- [ ] Profile Page
+- [ ] Profile Editing
+- [ ] Settings - custom time
+- [x] Leaderboards
+- [ ] Share leveling up image on social media
+- [ ] Add more challenges
+- [ ] Achievents
+
+# Roadmap - Aditional Features - Depployed
 
 - [ ] Store data on database
 - [ ] New UI style
