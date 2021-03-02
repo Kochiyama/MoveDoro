@@ -14,6 +14,7 @@ import { ChallengeBox } from '../components/ChallengeBox';
 import styles from '../styles/pages/dashboard.module.css';
 import axios from 'axios';
 import api from '../config/api';
+import { NavBar } from '../components/NavBar';
 
 interface Avatar {
 	url: string;
@@ -56,6 +57,8 @@ export default function Dashboard(props: DashboardProps) {
 					</section>
 				</CountdownProvider>
 			</div>
+
+			<NavBar />
 		</ChallengesProvider>
 	);
 }
