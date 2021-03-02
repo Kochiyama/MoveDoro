@@ -1,14 +1,20 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FiHome } from 'react-icons/fi';
+import { FiHome, FiLogOut } from 'react-icons/fi';
 import { BiMedal } from 'react-icons/bi';
 
 import styles from '../styles/components/NavBar.module.css';
+import Cookies from 'js-cookie';
 
 export function NavBar() {
 	const router = useRouter();
 
 	const actualRoute = router.pathname;
+
+	function logout() {
+		Cookies.remove('movedoro_auth_token');
+		router.push('/login');
+	}
 
 	return (
 		<div className={styles.navbar}>
@@ -43,6 +49,15 @@ export function NavBar() {
 					</div>
 				</Link>
 			</div>
+
+			<button className={styles.logoutButton} onClick={logout}>
+				<FiLogOut
+					style={{
+						width: '2rem',
+						height: '2rem',
+					}}
+				/>
+			</button>
 		</div>
 	);
 }

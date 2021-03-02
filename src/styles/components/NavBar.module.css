@@ -49,3 +49,11 @@
 .currentRouteLink {
 	color: var(--blue);
 }
+
+.logoutButton {
+	margin: 1rem 0rem;
+	border: none;
+	font-size: 0;
+	background: none;
+	color: var(--text);
+}
