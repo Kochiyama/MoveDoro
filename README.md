@@ -52,6 +52,7 @@ If you have found a bug or have an idea to improve this project you can send an 
 
 - [x] Store data on database
 - [x] New UI style
+- [x] Navigation Bar
 - [ ] Themes
 - [x] User login and Authentication
 - [ ] Profile Page
@@ -66,6 +67,7 @@ If you have found a bug or have an idea to improve this project you can send an 
 
 - [ ] Store data on database
 - [ ] New UI style
+- [ ] Navigation Bar
 - [ ] Themes
 - [ ] User login and Authentication
 - [ ] Profile Page
