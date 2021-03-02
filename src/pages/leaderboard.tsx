@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import React from 'react';
+import { NavBar } from '../components/NavBar';
 import api from '../config/api';
 
 import styles from '../styles/pages/leaderboard.module.css';
@@ -76,6 +77,8 @@ export default function Leaderboard({ users }: LeaderboardProps) {
 					</tbody>
 				</table>
 			</div>
+
+			<NavBar />
 		</div>
 	);
 }
