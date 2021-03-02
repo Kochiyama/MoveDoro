@@ -1,0 +1,51 @@
+.navbar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+
+	padding: 2rem;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	background: var(--white);
+	box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+	font-size: 3rem;
+	font-weight: 600;
+	font-family: 'Rajdhani';
+
+	color: var(--blue);
+}
+
+.navlinks {
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.linkIcon {
+	width: 100%;
+	padding: 1rem 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	transition: filter 0.2s;
+}
+
+.linkIcon:hover {
+	filter: brightness(0.8);
+}
+
+.currentRouteLink {
+	color: var(--blue);
+}
