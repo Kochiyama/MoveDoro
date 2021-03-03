@@ -12,7 +12,12 @@
 }
 
 .container {
-	background: var(--white);
+	display: flex;
+	flex-direction: column;
+}
+
+.info {
+	background: var(--background);
 	width: 100%;
 	max-width: 400px;
 	padding: 2rem 3rem;
@@ -22,7 +27,7 @@
 	position: relative;
 }
 
-.container header {
+.info header {
 	font-size: 8.75rem;
 	font-weight: 600;
 	color: var(--blue);
@@ -30,22 +35,26 @@
 	background-size: contain;
 }
 
-.container strong {
+.info strong {
 	font-size: 2.25rem;
 	color: var(--title);
 }
 
-.container p {
+.info p {
 	font-size: 1.25rem;
 	color: var(--text);
 	margin-top: 0.25rem;
 }
 
-.container button {
+.info > button {
 	position: absolute;
 	right: 0.5rem;
 	top: 0.5rem;
 	background: transparent;
 	border: 0;
 	font-size: 0;
+}
+
+.shareButton {
+	background-color: teal;
 }
