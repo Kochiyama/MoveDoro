@@ -1,20 +1,17 @@
 import styles from '../styles/components/SessionModal.module.css';
 
+interface modalData {
+	isError?: boolean;
+	username?: string;
+	title?: string;
+	message?: string;
+}
 interface ModalProps {
 	closeModalFunction: () => void;
-	isErrorModal: boolean;
-	title: string;
-	message: string;
-	modalUserName?: string;
+	modalData: modalData;
 }
 
-export function SessionModal({
-	closeModalFunction,
-	isErrorModal,
-	title,
-	message,
-	modalUserName,
-}: ModalProps) {
+export function SessionModal({ closeModalFunction, modalData }: ModalProps) {
 	return (
 		<div className={styles.overlay}>
 			<div className={styles.container}>
@@ -22,19 +19,20 @@ export function SessionModal({
 					<img src='icons/close.svg' />
 				</button>
 
-				{isErrorModal ? (
-					<h1 className={styles.errorTitle}>{title}</h1>
+				{modalData.isError ? (
+					<h1 className={styles.errorTitle}>{modalData.title}</h1>
 				) : (
-					<h1>{title}</h1>
+					<h1>{modalData.title}</h1>
 				)}
 
-				{modalUserName && (
+				{modalData.username && (
 					<h2>
-						Olá <strong>{modalUserName}</strong>! Seja bem vindo ao MoveDoro.
+						Olá <strong>{modalData.username}</strong>! Seja bem vindo ao
+						MoveDoro.
 					</h2>
 				)}
 
-				<p>{message}</p>
+				<p>{modalData.message}</p>
 			</div>
 		</div>
 	);
