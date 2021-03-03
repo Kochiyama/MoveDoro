@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { ChallengesContext } from '../contexts/ChallengesContext';
+import { ShareOnTwitterButton } from './ShareOnTwitterButton';
 import styles from '../styles/components/LevelUpModal.module.css';
 
 export function LevelUpModal() {
@@ -8,14 +9,19 @@ export function LevelUpModal() {
 	return (
 		<div className={styles.overlay}>
 			<div className={styles.container}>
-				<header>{level}</header>
+				<div className={styles.info}>
+					<header>{level}</header>
 
-				<strong>Parabéns</strong>
-				<p>Você alcançou um novo level.</p>
+					<strong>Parabéns</strong>
+					<p>Você alcançou um novo level.</p>
 
-				<button type='button' onClick={closeLevelUpModal}>
-					<img src='/icons/close.svg' alt='Fechar Modal' />
-				</button>
+					<button type='button' onClick={closeLevelUpModal}>
+						<img src='/icons/close.svg' alt='Fechar Modal' />
+					</button>
+				</div>
+				<div className={styles.shareButton}>
+					<ShareOnTwitterButton />
+				</div>
 			</div>
 		</div>
 	);
