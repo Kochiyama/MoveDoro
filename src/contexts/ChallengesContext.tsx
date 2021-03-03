@@ -6,7 +6,6 @@ import challenges from '../../challenges.json';
 
 import { LevelUpModal } from '../components/LevelUpModal';
 import { User } from '../pages/index';
-import { string } from 'yup';
 import Cookies from 'js-cookie';
 
 interface Challenge {
@@ -49,7 +48,7 @@ export function ChallengesProvider({
 		user.challenges_completed ?? 0
 	);
 	const [activeChallenge, setActiveChallenge] = useState(null);
-	const [isLevelUpModalOpen, setisLevelUpModalOpen] = useState(false);
+	const [isLevelUpModalOpen, setisLevelUpModalOpen] = useState(true);
 
 	const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
