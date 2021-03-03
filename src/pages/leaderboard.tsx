@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
 	const { data } = await axios({
 		method: 'GET',
-		url: `${api.url}/leaderboards`,
+		url: `${api.url}/leaderboard`,
 		headers: { Authorization: `Bearer ${movedoro_auth_token}` },
 	});
 
