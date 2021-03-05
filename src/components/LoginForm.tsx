@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 
 import styles from '../styles/components/Form.module.css';
+import { SessionContext } from '../contexts/SessionsContext';
 
 interface ValidationProps {
 	email: string;
@@ -28,15 +29,17 @@ const validate = values => {
 	return errors;
 };
 
-export const LoginForm = ({ handleSubmit }) => {
+export const LoginForm = () => {
+	const { handleLogin } = useContext(SessionContext);
+
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 			password: '',
 		},
 		validate,
-		onSubmit: async values => {
-			handleSubmit(values);
+		onSubmit: values => {
+			handleLogin(values);
 		},
 	});
 	return (
