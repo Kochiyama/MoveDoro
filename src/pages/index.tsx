@@ -10,11 +10,11 @@ import Profile from '../components/Profile';
 import CompletedCheallenges from '../components/CompletedChallenges';
 import Countdown from '../components/Countdown';
 import { ChallengeBox } from '../components/ChallengeBox';
+import { NavBar } from '../components/NavBar';
+
+import api from '../utils/api';
 
 import styles from '../styles/pages/dashboard.module.css';
-import axios from 'axios';
-import api from '../config/api';
-import { NavBar } from '../components/NavBar';
 
 interface Avatar {
 	url: string;
@@ -64,9 +64,9 @@ export default function Dashboard(props: DashboardProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-	const { movedoro_auth_token } = ctx.req.cookies;
+	const response = await api.getUser(ctx.req.cookies.movedoro_auth_token);
 
-	if (!movedoro_auth_token) {
+	if (response.isAxiosError) {
 		return {
 			redirect: {
 				destination: '/login',
@@ -74,12 +74,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 			},
 		};
 	}
-
-	const response = await axios({
-		method: 'GET',
-		url: `${api.url}/users`,
-		headers: { Authorization: `Bearer ${movedoro_auth_token}` },
-	});
 
 	return {
 		props: {
