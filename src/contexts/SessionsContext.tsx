@@ -2,16 +2,15 @@ import axios from 'axios';
 import { createContext, ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 
-import { SessionModal } from '../components/SessionModal';
+import api, { registerValuesData, loginValuesData } from '../utils/api';
 
-interface registerValuesData {
-	name: string;
-	email: string;
-	password: string;
-}
+import { SessionModal } from '../components/SessionModal';
+import Cookies from 'js-cookie';
 
 interface SessionContextData {
 	handleRegister: (values: registerValuesData) => void;
+	handleLogin: (values: loginValuesData) => void;
+	handleLogout: () => void;
 }
 
 interface SessionProviderProps {
@@ -30,26 +29,8 @@ export function SessionProvider({ children }: SessionProviderProps) {
 		setIsSessionModalOpen(false);
 	}
 
-	async function Register(values: registerValuesData) {
-		try {
-			await axios({
-				method: 'POST',
-				url: 'http://localhost:4000/users',
-				data: {
-					name: values.name,
-					email: values.email,
-					password: values.password,
-				},
-			});
-			return true;
-		} catch (error) {
-			return false;
-		}
-	}
-
-	async function handleRegister(values: registerValuesData) {
-		const successfullyRegistered = await Register(values);
-		console.log(successfullyRegistered);
+	async function handleRegister(values) {
+		const successfullyRegistered = await api.register(values);
 
 		if (successfullyRegistered) {
 			const firstName = values.name.split(' ')[0];
@@ -75,8 +56,30 @@ export function SessionProvider({ children }: SessionProviderProps) {
 		}, 3000);
 	}
 
+	async function handleLogin(values) {
+		const response = await api.login(values);
+
+		if (response.type === 'error') {
+			setModalData({
+				isError: true,
+				title: response.title,
+				message: response.message,
+			});
+			setIsSessionModalOpen(true);
+		} else {
+			Cookies.set('movedoro_auth_token', String(response.token));
+			router.push('/');
+		}
+	}
+
+	function handleLogout() {
+		Cookies.remove('movedoro_auth_token');
+		router.push('/login');
+	}
+
 	return (
-		<SessionContext.Provider value={{ handleRegister: handleRegister }}>
+		<SessionContext.Provider
+			value={{ handleRegister, handleLogin, handleLogout }}>
 			{children}
 
 			{isSessionModalOpen && (
