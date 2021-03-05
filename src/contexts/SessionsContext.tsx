@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { createContext, ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 
