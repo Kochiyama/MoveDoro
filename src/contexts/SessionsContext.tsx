@@ -1,10 +1,10 @@
 import { createContext, ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 import api, { registerValuesData, loginValuesData } from '../utils/api';
 
 import { SessionModal } from '../components/SessionModal';
-import Cookies from 'js-cookie';
 
 interface SessionContextData {
 	handleRegister: (values: registerValuesData) => void;
