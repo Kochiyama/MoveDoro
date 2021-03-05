@@ -4,6 +4,7 @@ import { NavBar } from '../components/NavBar';
 import api from '../utils/api';
 
 import styles from '../styles/pages/leaderboard.module.css';
+import LeaderboardTable from '../components/LeaderboardTable';
 
 interface AvatarData {
 	url: string;
@@ -31,53 +32,10 @@ export default function Leaderboard({ leaderboard }: LeaderboardProps) {
 					<h1>TOP 10</h1>
 				</header>
 
-				<table className={styles.table}>
-					<thead>
-						<tr>
-							<th>POSIÇÃO</th>
-							<th>USUÁRIO</th>
-							<th>DESAFIOS</th>
-							<th>EXPERIÊNCIA</th>
-						</tr>
-					</thead>
+				<LeaderboardTable leaderboard={leaderboard} />
 
-					<tbody>
-						{leaderboard.map((user, index) => {
-							index++;
-							return (
-								<tr key={user.name}>
-									<td>{index}</td>
-
-									<td className={styles.user}>
-										<img className={styles.userAvatar} src={user.avatar.url} />
-
-										<div className={styles.userInfoContainer}>
-											<span className={styles.userName}>{user.name}</span>
-
-											<div className={styles.userLevelContainer}>
-												<img src='icons/level.svg' />
-												<span>Level {user.level}</span>
-											</div>
-										</div>
-									</td>
-
-									<td>
-										<strong>{user.challenges_completed} </strong>
-										completados
-									</td>
-
-									<td>
-										<strong>{user.current_experience} </strong>
-										xp
-									</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
+				<NavBar />
 			</div>
-
-			<NavBar />
 		</div>
 	);
 }
