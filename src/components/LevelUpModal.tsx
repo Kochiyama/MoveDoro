@@ -19,6 +19,7 @@ export function LevelUpModal() {
 						<img src='/icons/close.svg' alt='Fechar Modal' />
 					</button>
 				</div>
+
 				<div className={styles.shareButton}>
 					<ShareOnTwitterButton />
 				</div>
