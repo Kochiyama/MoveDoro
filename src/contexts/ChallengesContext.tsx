@@ -1,12 +1,11 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
 import axios from 'axios';
-import api from '../config/api';
+import api from '../utils/api';
 
 import challenges from '../../challenges.json';
 
 import { LevelUpModal } from '../components/LevelUpModal';
 import { User } from '../pages/index';
-import Cookies from 'js-cookie';
 
 interface Challenge {
 	type: string;
@@ -53,31 +52,18 @@ export function ChallengesProvider({
 	const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
 	function updateDatabaseUserData() {
-		axios({
-			method: 'PUT',
-			url: `${api.url}/users`,
-			data: {
-				level: level,
-				current_experience: currentExperience,
-				challenges_completed: challengesCompleted,
-			},
-			headers: {
-				Authorization: `Bearer ${Cookies.get('movedoro_auth_token')}`,
-			},
-		}).then(res => {
-			console.log(res);
-		});
+		api.updateUser({ level, currentExperience, challengesCompleted });
 	}
-
-	useEffect(() => {
-		Notification.requestPermission();
-	}, []);
 
 	useEffect(updateDatabaseUserData, [
 		level,
 		currentExperience,
 		challengesCompleted,
 	]);
+
+	useEffect(() => {
+		Notification.requestPermission();
+	}, []);
 
 	function openLevelUpModal() {
 		setisLevelUpModalOpen(true);
