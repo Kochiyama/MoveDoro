@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import React from 'react';
 import { NavBar } from '../components/NavBar';
-import api from '../config/api';
+import api from '../utils/api';
 
 import styles from '../styles/pages/leaderboard.module.css';
 
@@ -21,10 +20,10 @@ interface UserData {
 }
 
 interface LeaderboardProps {
-	users: Array<UserData>;
+	leaderboard: Array<UserData>;
 }
 
-export default function Leaderboard({ users }: LeaderboardProps) {
+export default function Leaderboard({ leaderboard }: LeaderboardProps) {
 	return (
 		<div className={styles.container}>
 			<div className={styles.leaderboard}>
@@ -43,7 +42,7 @@ export default function Leaderboard({ users }: LeaderboardProps) {
 					</thead>
 
 					<tbody>
-						{users.map((user, index) => {
+						{leaderboard.map((user, index) => {
 							index++;
 							return (
 								<tr key={user.name}>
@@ -84,9 +83,9 @@ export default function Leaderboard({ users }: LeaderboardProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-	const { movedoro_auth_token } = ctx.req.cookies;
+	const response = await api.getUser(ctx.req.cookies.movedoro_auth_token);
 
-	if (!movedoro_auth_token) {
+	if (response.isAxiosError) {
 		return {
 			redirect: {
 				destination: '/login',
@@ -95,15 +94,13 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 		};
 	}
 
-	const { data } = await axios({
-		method: 'GET',
-		url: `${api.url}/leaderboard`,
-		headers: { Authorization: `Bearer ${movedoro_auth_token}` },
-	});
+	const leaderboard = await api.getLeaderboard(
+		ctx.req.cookies.movedoro_auth_token
+	);
 
 	return {
 		props: {
-			users: data,
+			leaderboard,
 		},
 	};
 };
