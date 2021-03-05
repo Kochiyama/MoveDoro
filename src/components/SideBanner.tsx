@@ -7,7 +7,7 @@ export function SideBanner() {
 
 			<p>A maneira automática de ser mais produtivo e saudável!</p>
 
-			<img src='time-management.svg' />
+			<img src='time-management.svg' alt='time-management' />
 		</div>
 	);
 }
