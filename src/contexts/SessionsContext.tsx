@@ -67,7 +67,7 @@ export function SessionProvider({ children }: SessionProviderProps) {
 			});
 			setIsSessionModalOpen(true);
 		} else {
-			Cookies.set('movedoro_auth_token', String(response.token));
+			Cookies.set('movedoro_auth_token', response.token);
 			router.push('/');
 		}
 	}
